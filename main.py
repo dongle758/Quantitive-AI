@@ -94,7 +94,7 @@ def visualize_data(df: pd.DataFrame, ticker: str):
         return
 
     # 创建子图
-    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 10), sharex=True,
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 7), sharex=True,
                                    gridspec_kw={'height_ratios': [3, 1]})
 
     # 上图：价格和均线
@@ -139,8 +139,8 @@ def main():
     """主函数"""
     # 参数配置
     ticker = "AAPL"
-    start_date = "2023-01-01"
-    end_date = "2024-02-19"
+    start_date = "2025-01-01"
+    end_date = "2025-02-19"
 
     # 获取数据
     single_stock = fetch_stock_data(ticker, start_date, end_date)
