@@ -12,6 +12,7 @@
       </el-form-item>
       <el-form-item label="集装器号" prop="uldNos">
         <el-select
+          ref="uldSelect"
           v-model="filterData.uldNos"
           multiple
           filterable
@@ -19,6 +20,7 @@
           default-first-option
           placeholder="输入集装器号，回车添加"
           style="width: 300px;"
+          @change="handleUldChange"
         >
           <el-option
             v-for="uld in maniFest.uldList.uldTalList"
@@ -195,6 +197,7 @@ interface FilterData {
 const tableRefItem = ref<Record<string, InstanceType<typeof ElTable> | undefined>>({})
 const uldTable = ref<InstanceType<typeof ElTable>>()
 const filterForm = ref<InstanceType<typeof ElForm>>()
+const uldSelect = ref<InstanceType<typeof import('element-plus').ElSelect>>()
 const expandedRows = ref<string[]>([])
 
 // 默认近三天日期范围
@@ -349,10 +352,20 @@ const formatDate = (date: Date): string => {
   return `${year}-${month}-${day}`
 }
 
+// 方法：处理集装器号变化，清空输入框
+const handleUldChange = (value: string[]) => {
+  console.log('已选集装器号:', value);
+  // 清空输入框但保留已选标签
+  if (uldSelect.value) {
+    uldSelect.value.blur(); // 失去焦点
+    uldSelect.value.focus(); // 重新聚焦
+  }
+};
+
 // 方法：查询
 const handleQuery = () => {
-  expandedRows.value = [] // 重置展开状态
-  console.log('筛选条件:', filterData.value)
+  expandedRows.value = []; // 重置展开状态
+  console.log('筛选条件:', filterData.value);
 }
 
 // 方法：清空表单
